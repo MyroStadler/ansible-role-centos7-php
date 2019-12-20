@@ -1,0 +1,6 @@
+{% for setting in php_ini_settings_main %}
+{{ setting.name }}={{ setting.value }}
+{% endfor %}
+{% for setting in php_ini_settings_xdebug %}
+{{ setting.name }}={{ setting.value }}
+{% endfor %}

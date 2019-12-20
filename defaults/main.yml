@@ -1,0 +1,53 @@
+---
+# defaults file for centos7_php
+php_remi_repo_url: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+php_remi_repo_key_url: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+
+php_install_enabled_repos:
+  - epel
+  - remi-safe
+  - remi-php72
+
+php_install_packages:
+  - php72
+  - php72-php
+  - php-opcache
+  - php72-php-xdebug
+  - php72-php-mcrypt
+  - php72-php-mbstring
+  - php72-php-gd
+  - php72-php-xml
+  - php72-php-pdo
+  - php72-php-mysql
+  - php72-php-curl
+
+php_symlink_source: /usr/bin/php72
+
+php_symlink_destination: /usr/bin/php
+
+php_custom_ini_destination: /etc/opt/remi/php72/php.d/custom-php.ini
+
+php_ini_settings_main:
+  - { name: memory_limit, value: 2048M }
+  - { name: upload_max_filesize, value: 256M }
+  - { name: post_max_size, value: 256M }
+  - { name: max_execution_time, value: 1000 }
+  - { name: max_input_time, value: 1000 }
+  - { name: max_input_nesting_level, value: 1000 }
+  - { name: max_input_vars, value: 3000 }
+  - { name: date_timezone, value: Europe/London }
+
+php_ini_settings_xdebug:
+  - { name: "xdebug.max_nesting_level", value: 4096 }
+  - { name: "xdebug.remote_autostart", value: 0 }
+  - { name: "xdebug.remote_connect_back", value: 0 }
+  - { name: "xdebug.remote_enable", value: 0 }
+  - { name: "xdebug.remote_host", value: 127.0.0.1 }
+  - { name: "xdebug.remote_port", value: 9000 }
+  - { name: "xdebug.remote_log", value: /tmp/xdebug.log }
+  - { name: "xdebug.idekey", value: PHPSTORM }
+  - { name: "xdebug.remote_mode", value: req }
+  - { name: "xdebug.remote_handler", value: dbgp }
+
+php_restart_services:
+  - httpd
