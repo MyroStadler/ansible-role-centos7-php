@@ -1,0 +1,33 @@
+---
+- name: Install remi repo
+  yum:
+    name: "{{ php_remi_repo_url }}"
+    state: present
+
+- name: Import remi GPG key
+  rpm_key:
+    key: "{{ php_remi_repo_key_url }}"
+    state: present
+
+- name: Install php
+  yum:
+    name: "{{ php_install_packages + php_install_db_packages + php_install_extra_packages }}"
+    enablerepo: "{{ php_install_enabled_repos }}"
+    state: installed
+
+- name: Symlink php
+  file:
+    src: "{{ php_symlink_source }}"
+    dest: "{{ php_symlink_destination }}"
+    state: link
+
+- name: Add custom php.ini
+  template:
+    src: custom-php.ini.j2
+    dest: "{{ php_custom_ini_destination }}"
+
+- name: Restart services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items: "{{ php_restart_services }}"
