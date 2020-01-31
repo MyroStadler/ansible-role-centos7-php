@@ -23,8 +23,10 @@ php_install_db_packages:
   - php72-php-mysql
   - php72-php-pgsql
 
-php_install_extra_packages:
+php_install_debug_packages:
   - php72-php-xdebug
+
+php_install_extra_packages: []
 
 php_symlink_source: /usr/bin/php72
 

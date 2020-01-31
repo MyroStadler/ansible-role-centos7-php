@@ -9,9 +9,27 @@
     key: "{{ php_remi_repo_key_url }}"
     state: present
 
-- name: Install php
+- name: Install php_install_packages
   yum:
-    name: "{{ php_install_packages + php_install_db_packages + php_install_extra_packages }}"
+    name: "{{ php_install_packages }}"
+    enablerepo: "{{ php_install_enabled_repos }}"
+    state: installed
+
+- name: Install php_install_db_packages
+  yum:
+    name: "{{ php_install_db_packages }}"
+    enablerepo: "{{ php_install_enabled_repos }}"
+    state: installed
+
+- name: Install php_install_debug_packages
+  yum:
+    name: "{{ php_install_debug_packages }}"
+    enablerepo: "{{ php_install_enabled_repos }}"
+    state: installed
+
+- name: Install php_install_extra_packages
+  yum:
+    name: "{{ php_install_extra_packages }}"
     enablerepo: "{{ php_install_enabled_repos }}"
     state: installed
 
